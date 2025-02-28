@@ -1,0 +1,229 @@
+% w este o variabila globala
+variable w ::= { x, y, z, p, q } ;
+
+grammar1 ::= Grammar (
+	nonterminals :: { X, Y, Z, W, V, U } ;
+	alphabet :: { a, b, c, d, e, f, g, h } ;
+	start_symbol :: X ;
+
+	X -> a&X | b&Y | e | W ;
+	Y -> b&Y | a&Z ;
+	Z -> d&Z | c ;
+	W -> e | f&U ;
+	U -> e | h&V ;
+	V -> f | g&Z ;
+) ;;
+
+grammar2 ::= Grammar (
+	alphabet :: { a, b, c, d, e, f } ;
+	nonterminals :: { T, U, V, W } ;
+	start_symbol :: T ;
+
+	T -> a&U | b&V | e ;
+	U -> f&U | c ;
+	V -> d | e ;
+	W -> e | f&V ;
+) ;;
+
+% x este o variabila locala
+automata1 ::= FiniteAutomaton (
+	alphabet :: { a, b, c, d } ;
+	states :: { q0, q1, q2, q3, q4 } ;
+	final_states :: { q4 } ;
+	initial_state :: q0 ;
+	variable x ::= { a, b, c, d, e } ;
+
+	q0 -> (
+		a -> q1 ;
+		b -> q2 ;
+	) ;
+
+    q1 -> (
+        c -> q3 ;
+        e -> q4 ;
+    ) ;
+
+    q2 -> (
+        b -> q1 ;
+        e -> q4 ;
+    ) ;
+
+    q3 -> (
+        d -> q4 ;
+    ) ;
+
+    q4 -> (
+        e -> q0 ;
+    ) ;
+) ;;
+
+% y este o variabila locala
+automata2 ::= FiniteAutomaton (
+	alphabet :: { a, b, c, d, e, f } ;
+	states :: { q0, q1, q2, q3, q4, q5 } ;
+	final_states :: { q5 } ;
+	initial_state :: q0 ;
+	variable y ::= { a, b, c, e, f } ;
+
+	q0 -> (
+		a -> q1 ;
+		b -> q2 ;
+		c -> q3 ;
+	) ;
+
+	q1 -> (
+		e -> q5 ;
+		d -> q4 ;
+	) ;
+
+	q2 -> (
+		b -> q3 ;
+		c -> q5 ;
+	) ;
+
+	q3 -> (
+	 f -> q4 ;
+	) ;
+
+	q4 -> (
+	 a -> q0 ;
+	) ;
+
+	q5 -> (
+	 e -> q1 ;
+	) ;
+) ;;
+
+% z este o variabila locala
+automata3 ::= FiniteAutomaton (
+	alphabet :: { a, b, c, d, e, f } ;
+	states :: { q0, q1, q2, q3, q4, q5, q6 } ;
+	final_states :: { q5 } ;
+	initial_state :: q0 ;
+	variable z ::= { b, c, d, e } ;
+
+	q0 -> (
+	 a -> q1 ;
+	 e -> q6 ;
+	) ;
+
+	q1 -> (
+	 b -> q2 ;
+	) ;
+
+	q2 -> (
+	 c -> q3 ;
+	 d -> q4 ;
+	) ;
+
+	q3 -> (
+	 e -> q5 ;
+	) ;
+
+	q4 -> (
+	 f -> q1 ;
+	) ;
+
+	q5 -> (
+	 c -> q0 ;
+	) ;
+
+	q6 -> (
+	 e -> q3 ;
+	) ;
+) ;;
+
+% t este o variabila locala
+automata4 ::= FiniteAutomaton (
+	alphabet :: { a, b, c, d, e } ;
+	states :: { q0, q1, q2, q3, q4 } ;
+	final_states :: { q4 } ;
+	initial_state :: q0 ;
+	variable t ::= { a, b, e } ;
+
+	q0 -> (
+	 a -> q1 ;
+	 b -> q2 ;
+	 e -> q3 ;
+	) ;
+
+	q1 -> (
+	 c -> q4 ;
+	) ;
+
+	q2 -> (
+	 d -> q3 ;
+	) ;
+
+	q3 -> (
+	 e -> q1 ;
+	) ;
+
+	q4 -> (
+	 a -> q2 ;
+	) ;
+) ;;
+
+% w este o variabila locala
+automata5 ::= FiniteAutomaton (
+	alphabet :: { a, b, c, d, e } ;
+	states :: { q0, q1, q2, q3, q4 } ;
+	final_states :: { q0 } ;
+	initial_state :: q0 ;
+	variable w ::= { a, c, e } ;
+
+	q0 -> (
+	 a -> q1 ;
+	 e -> q2 ;
+	) ;
+
+	q1 -> (
+	 b -> q3 ;
+	) ;
+
+	q2 -> (
+	 c -> q4 ;
+	) ;
+
+	q3 -> (
+	 d -> q0 ;
+	) ;
+
+	q4 -> (
+	 a -> q2 ;
+	) ;
+) ;;
+
+% Acest automat are tranziții de tip epsilon
+automata6 ::= FiniteAutomaton (
+	alphabet :: { a, b, c, e } ;
+	states :: { q0, q1, q2, q3, q4, q5 } ;
+	final_states :: { q5 } ;
+	initial_state :: q0 ;
+
+	q0 -> (
+	 a -> q1 ;
+	 e -> q4 ;
+	) ;
+
+    q1 -> (
+        b -> q3 ;
+        e -> q2 ;
+    ) ;
+
+    q2 -> (
+        c -> q5 ;
+    ) ;
+
+    q3 -> (
+        e -> q4 ;
+    ) ;
+
+    q4 -> (
+        e -> q5 ;
+    ) ;
+
+    q5 -> (
+        e -> q1 ;
+    ) ;
+) ;;
